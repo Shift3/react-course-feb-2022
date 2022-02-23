@@ -8,3 +8,15 @@ function getPosts(){
 }
 
 getPosts();
+
+async function getPostsAsync(){
+  try{
+    const response = await axios.get(apiUrl);
+    console.log('Results using async await: ', response.data);
+  }catch(error){
+    console.log('Failed: ', error);
+  }
+  
+}
+
+getPostsAsync();
