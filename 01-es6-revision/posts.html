@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Example of Async / Await</title>
+</head>
+<body>
+
+  <h1>Posts</h1>
+  <ul id="posts"></ul>
+
+  <script>
+    const ul = document.getElementById('posts');
+    const apiUrl = 'https://jsonplaceholder.typicode.com/posts';
+    
+    async function getPosts(){
+      const response = await fetch(apiUrl);
+      const data = await response.json();
+      data.map( post => {
+        let li = document.createElement('li');
+        let title = document.createElement('h2');
+        let body = document.createElement('p');
+
+        title.innerHTML = `${post.title}`;
+        body.innerHTML = `${post.body}`;
+
+        li.appendChild(title);
+        li.appendChild(body);
+        ul.appendChild(li);
+      });
+    }
+
+    getPosts();
+    
+  </script>  
+</body>
+</html>

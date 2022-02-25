@@ -18,3 +18,8 @@ const newWaySentence = `Learn
 React.js
 `;
 console.log(newWaySentence);
+
+git branch -m ea-1-es6revision main
+git fetch origin
+git branch -u origin/main main
+git remote set-head origin -a
