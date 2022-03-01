@@ -3,18 +3,12 @@
 
 
 const getMoviesBySearchTerm = async (searchInput) => {
-  const API_URL = `http://www.omdbapi.com`;
-  const API_KEY = 'd71fd0c8';    
-  
   const response = await fetch(`${API_URL}/?apiKey=${API_KEY}&s=${searchInput}`);
   const data = await response.json();
   console.log(data);
   displayResults(data.Search);
 }
  const getMoviesDetailsById = async (movieId) => {
-  const API_URL = `http://www.omdbapi.com`;
-  const API_KEY = 'd71fd0c8';    
-  
   const response = await fetch(`${API_URL}/?apiKey=${API_KEY}&i=${movieId}`);
   const data = await response.json();
   console.log(data);
