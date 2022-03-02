@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import MovieCard from "./components/MovieCard";
 import { getMovieDetailsById } from './utils';
+import MovieDetails from "./components/MovieDetails";
 
 function App() {
   const [movie, setMovie] = useState("");
@@ -14,11 +15,29 @@ function App() {
     setMovie(requestedMovie);
   }
   return (
-    <MovieCard 
+    <>
+    <div>
+      <MovieCard 
       title={movie.Title}
       type={movie.Type}
       posterUrl = {movie.Poster}  
     />
+    </div>
+    <div>
+    <MovieDetails
+      posterUrl = {movie.Poster}
+      title = {movie.Title} 
+      rated = {movie.Rated}
+      runtime = {movie.Runtime} 
+      genre = {movie.Genre} 
+      plot = { movie.Plot} 
+      actors = {movie.Actors} 
+      rating = { movie.Rating}
+    />
+
+    </div> 
+    </>
+    
   );
 }
 
