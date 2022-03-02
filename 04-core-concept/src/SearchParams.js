@@ -25,7 +25,12 @@ const SearchParams = () => {
 
   return (
     <div>
-      <form>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          requestAnimals();
+        }}
+      >
         <label>
           Location:
           <input
