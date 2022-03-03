@@ -6,7 +6,7 @@ export const getMoviesBySearchTerm = async (searchInput) => {
   const data = await response.json();
   return data;
 }
- export const getMoviesDetailsById = async (movieId) => {
+ export const getMovieDetailsById = async (movieId) => {
   const response = await fetch(`${API_URL}/?apiKey=${API_KEY}&i=${movieId}`);
   const data = await response.json();
   return data;
