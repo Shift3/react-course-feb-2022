@@ -1,0 +1,30 @@
+.container-details {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  margin: 5rem auto;
+  justify-content: center;
+  align-content: stretch;
+}
+
+img {
+  margin: 0 3rem;
+  object-fit: cover;
+}
+.movie-details {
+  display: grid;
+  grid-template-columns: repeat(2, 20rem);
+  grid-template-rows: auto;
+  grid-gap: 2rem;
+}
+
+.movie-details div {
+  grid-column: 1 / 2;
+}
+
+.movie-details span {
+  background-color: lightgray;
+  padding: 0.5rem 1rem;
+  margin: 0 1rem;
+  border-radius: 10px;
+}

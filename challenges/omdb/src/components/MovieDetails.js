@@ -1,26 +1,29 @@
+import "./MovieDetails.css";
+
 const MovieDetails = ({ posterUrl, title, rated, runtime, genre, plot, actors, rating}) => {
   return (
-    <div className="container">
+    <div className="container-details">
       <img src={posterUrl} alt={title} />
       <div className="movie-details">
-        <div>
-          <h3>{title}</h3>
-          <span>{rating}</span>
-        </div>
-
+        <h2>{title}</h2>
+        <h1 style={{color: 'blue'}}>{rating}</h1>
+        
         <div>
           <span>{rated}</span>
           <span>{runtime}</span>
+        </div>
+
+        <div>
           <span>{genre}</span>
         </div>
 
         <div>
-          <h5>Plot</h5>
+          <h4>Plot</h4>
           <p>{plot}</p>
         </div>
 
         <div>
-          <h5>Actors</h5>
+          <h4>Actors</h4>
           <p>{actors}</p>  
         </div>        
       </div>

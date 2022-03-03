@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import MovieCard from "./components/MovieCard";
+//import MovieCard from "./components/MovieCard";
 import { getMovieDetailsById } from './utils';
 import MovieDetails from "./components/MovieDetails";
 
@@ -16,13 +16,13 @@ function App() {
   }
   return (
     <>
-    <div>
+    {/* <div>
       <MovieCard 
       title={movie.Title}
       type={movie.Type}
       posterUrl = {movie.Poster}  
     />
-    </div>
+    </div> */}
     <div>
     <MovieDetails
       posterUrl = {movie.Poster}
@@ -32,7 +32,7 @@ function App() {
       genre = {movie.Genre} 
       plot = { movie.Plot} 
       actors = {movie.Actors} 
-      rating = { movie.Rating}
+      rating = { movie.imdbRating}
     />
 
     </div> 
