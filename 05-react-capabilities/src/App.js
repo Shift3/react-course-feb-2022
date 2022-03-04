@@ -3,12 +3,13 @@ import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SearchParams from "./SearchParams";
 import Details from "./Details";
+import Header from "./Header";
 
 const App = () => {
   return (
     <>
-      <h1>Animal Acquisation</h1>
       <Router>
+        <Header />
         <Routes>
           <Route path="/details/:id" element={<Details />} />
           <Route path="/" element={<SearchParams />} />
