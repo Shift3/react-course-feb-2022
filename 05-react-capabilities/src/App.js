@@ -1,6 +1,6 @@
 import { StrictMode } from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import SearchParams from "./SearchParams";
 import Details from "./Details";
 import Header from "./Header";
@@ -10,10 +10,14 @@ const App = () => {
     <>
       <Router>
         <Header />
-        <Routes>
-          <Route path="/details/:id" element={<Details />} />
-          <Route path="/" element={<SearchParams />} />
-        </Routes>
+        <Switch>
+          <Route path="/details/:id">
+            <Details />
+          </Route>
+          <Route path="/">
+            <SearchParams />
+          </Route>
+        </Switch>
       </Router>
     </>
   );
