@@ -1,0 +1,11 @@
+.animal {
+  border: solid;
+  border-color: black;
+  border-width: 0.3rem;
+  margin: 3rem 2rem;
+  cursor: pointer;
+}
+
+.animal:hover {
+  background-color: aqua;
+}
