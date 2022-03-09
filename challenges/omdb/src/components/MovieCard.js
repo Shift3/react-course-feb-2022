@@ -1,6 +1,6 @@
 import "./MovieCard.css";
 
-const MovieCard = ({ title, type, posterUrl }) => {
+const MovieCard = ({ Title: title, Type: type, Poster: posterUrl }) => {
   const getDetails = () => {
 
   }

@@ -3,6 +3,7 @@ import Header from "./components/Header";
 import Spinner from "./components/Spinner";
 import SearchBar from "./components/SearchBar";
 import { getMoviesBySearchTerm } from './utils';
+import MovieList from "./components/MovieList";
 
 function App() {
   const [searchTerm, setSearchTerm] = useState("batman");
@@ -39,7 +40,10 @@ function App() {
       { isLoading ? (
         <Spinner />
       ) : (
-        <SearchBar onSubmit={onSubmitHandler}/>
+        <>
+          <SearchBar onSubmit={onSubmitHandler}/>
+          <MovieList movies={movies}/>
+        </>
       )
     }
     </>
