@@ -1,41 +1,47 @@
 import { useState, useEffect } from "react";
-//import MovieCard from "./components/MovieCard";
-import { getMovieDetailsById } from './utils';
-import MovieDetails from "./components/MovieDetails";
+import Header from "./components/Header";
+import Spinner from "./components/Spinner";
+import SearchBar from "./components/SearchBar";
+import { getMoviesBySearchTerm } from './utils';
 
 function App() {
-  const [movie, setMovie] = useState("");
-
+  const [searchTerm, setSearchTerm] = useState("batman");
+  const [isLoading, setIsLoading] = useState(false);
+  const [movies, setMovies] = useState([]);
+  const [srror, setError] = useState(null);
+  
   useEffect(() => {
-    getMovie();
-  }, []);
+    setIsLoading(true);
+    getMoviesBySearchTerm(searchTerm).then(response => {
+      if(response.setError){
+        setMovies([]);
+        setError(`Error occured: ${response.Error}`);
+      }
+      setMovies(response.Search);
+      console.log('Fetched movies: ', movies);
+    }).catch(err => {
+      setMovies([]);
+      setError(`Error occured: ${err}`);
+    }).finally(() => setIsLoading(false));
+     
+  }, [searchTerm]);
 
-  const getMovie = async() => {
-    const requestedMovie =  await getMovieDetailsById('tt0372784');
-    setMovie(requestedMovie);
+  const onSubmitHandler = (e) => {
+    console.log('called');
+    e.preventDefault();
+    setSearchTerm(e.target.searchInput.value);
   }
+
   return (
     <>
-    {/* <div>
-      <MovieCard 
-      title={movie.Title}
-      type={movie.Type}
-      posterUrl = {movie.Poster}  
-    />
-    </div> */}
-    <div>
-    <MovieDetails
-      posterUrl = {movie.Poster}
-      title = {movie.Title} 
-      rated = {movie.Rated}
-      runtime = {movie.Runtime} 
-      genre = {movie.Genre} 
-      plot = { movie.Plot} 
-      actors = {movie.Actors} 
-      rating = { movie.imdbRating}
-    />
+      <Header/>
 
-    </div> 
+      { isLoading ? (
+        <Spinner />
+      ) : (
+        <SearchBar onSubmit={onSubmitHandler}/>
+      )
+    }
     </>
     
   );
