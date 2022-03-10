@@ -5,7 +5,6 @@ const SearchBar = (props) => {
         <input 
           id="searchInput" 
           placeholder="Enter movie, series, or episode name..."
-          style={{width: '80%'}}
           type="text"
           />
       </label>
