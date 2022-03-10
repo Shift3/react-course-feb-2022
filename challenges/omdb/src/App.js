@@ -1,41 +1,52 @@
 import { useState, useEffect } from "react";
-//import MovieCard from "./components/MovieCard";
-import { getMovieDetailsById } from './utils';
-import MovieDetails from "./components/MovieDetails";
+import Header from "./components/Header";
+import Spinner from "./components/Spinner";
+import SearchBar from "./components/SearchBar";
+import { getMoviesBySearchTerm } from './utils';
+import MovieList from "./components/MovieList";
+import classes from './App.module.css';
 
 function App() {
-  const [movie, setMovie] = useState("");
-
+  const [searchTerm, setSearchTerm] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [movies, setMovies] = useState([]);
+  const [error, setError] = useState(null);
+  
   useEffect(() => {
-    getMovie();
-  }, []);
+    if(searchTerm === '') return;
+    setIsLoading(true);
+    getMoviesBySearchTerm(searchTerm).then(response => {
+      if(response.setError){
+        setMovies([]);
+        setError(`Error occured: ${response.Error}`);
+      }
+      setMovies(response.Search);
+    }).catch(err => {
+      setMovies([]);
+      setError(`Error occured: ${err}`);
+      console.log('Error: ', error);
+    }).finally(() => setIsLoading(false));
+     
+  }, [searchTerm]);
 
-  const getMovie = async() => {
-    const requestedMovie =  await getMovieDetailsById('tt0372784');
-    setMovie(requestedMovie);
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+    setSearchTerm(prev => e.target.searchInput.value);
   }
+
   return (
     <>
-    {/* <div>
-      <MovieCard 
-      title={movie.Title}
-      type={movie.Type}
-      posterUrl = {movie.Poster}  
-    />
-    </div> */}
-    <div>
-    <MovieDetails
-      posterUrl = {movie.Poster}
-      title = {movie.Title} 
-      rated = {movie.Rated}
-      runtime = {movie.Runtime} 
-      genre = {movie.Genre} 
-      plot = { movie.Plot} 
-      actors = {movie.Actors} 
-      rating = { movie.imdbRating}
-    />
+      <Header/>
 
-    </div> 
+      { isLoading ? (
+        <Spinner />
+      ) : (
+        <div className={classes.main}>
+          <SearchBar onSubmit={onSubmitHandler}/>
+          <MovieList movies={movies}/>
+        </div>
+      )
+    }
     </>
     
   );
