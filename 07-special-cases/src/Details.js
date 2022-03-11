@@ -2,6 +2,7 @@ import { Component } from "react";
 import { withRouter } from "react-router-dom";
 import Carousel from "./Carousel";
 import ErrorBounday from "./ErrorBoundary";
+import ThemeContext from "./ThemeContext";
 
 class Details extends Component {
   state = { loading: true };
@@ -22,12 +23,18 @@ class Details extends Component {
     const { animal, breed, city, state, description, name, images } =
       this.state;
 
-    throw new Error("error thrown here");
+    //throw new Error("error thrown here");
     return (
       <div>
         <h1>{name}</h1>
         <h2>{`${animal} - ${breed} - ${city}, ${state}`}</h2>
-        <button>Buy {animal}</button>
+        <ThemeContext.Consumer>
+          {([theme]) => (
+            <button style={{ backgroundColor: theme, color: "#fff" }}>
+              Buy {animal}
+            </button>
+          )}
+        </ThemeContext.Consumer>
         <p>{description}</p>
 
         <Carousel images={images} />
