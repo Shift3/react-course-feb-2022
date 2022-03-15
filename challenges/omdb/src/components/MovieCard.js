@@ -1,16 +1,24 @@
-import "./MovieCard.css";
+import {useState} from "react";
+ import Modal from "./Modal";
+ import "./movieCard.css"
+import MovieDetails from "./MovieDetails";
 
 const MovieCard = ({movie}) => {
-  const getDetails = () => {
+  const [showModal, setShowModal] = useState(false);
 
-  }
-
-  return(
-    <div className="container" onClick={getDetails}>
-      <img src={movie.Poster} alt={movie.Title} />
-      <p>{movie.Title}</p>
-      <span>{movie.Type}</span>
+  const {Title, Type, Poster} = movie;
+  
+  return (
+    <>
+    <div className="card" style={{cursor: "pointer"}} onClick={() => setShowModal(!showModal)}>
+      <img src={Poster} alt={Title} />
+      <p>{Title}</p> 
+      <label>{Type}</label> 
     </div>
+    <Modal show={showModal} onClose={() => setShowModal(!showModal)}>
+      <MovieDetails movieId={movie.imdbID} />
+    </Modal>
+    </>
   );
 }
 
