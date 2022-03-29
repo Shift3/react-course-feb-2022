@@ -1,0 +1,10 @@
+header {
+  margin: 10rem auto;
+  font-size: 3rem;
+  text-align: center;
+}
+
+header a {
+  text-transform: uppercase;
+  text-decoration: none;
+}
