@@ -1,10 +1,9 @@
 import { Component, lazy } from "react";
+import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import Carousel from "./Carousel";
-import ErrorBounday from "./ErrorBoundary";
-import ThemeContext from "./ThemeContext";
+import ErrorBoundary from "./ErrorBoundary";
 import classes from "./Details.module.css";
-
 const Modal = lazy(() => import("./Modal"));
 
 class Details extends Component {
@@ -19,6 +18,7 @@ class Details extends Component {
   }
 
   toggleModal = () => this.setState({ showModal: !this.state.showModal });
+
   buyAnimal = () =>
     (window.location =
       "https://www.petfinder.com/search/dogs-for-adoption/?distance=100");
@@ -31,47 +31,47 @@ class Details extends Component {
     const { animal, breed, city, state, description, name, images, showModal } =
       this.state;
 
-    //throw new Error("error thrown here");
     return (
-      <div>
-        <h1>{name}</h1>
-        <h2>{`${animal} - ${breed} - ${city}, ${state}`}</h2>
-        <ThemeContext.Consumer>
-          {([theme]) => (
-            <button
-              style={{ backgroundColor: theme, color: "#fff" }}
-              onClick={this.toggleModal}
-            >
-              Buy {animal}
-            </button>
-          )}
-        </ThemeContext.Consumer>
-        <p>{description}</p>
-
+      <div className="details">
         <Carousel images={images} />
+        <div>
+          <h1>{name}</h1>
+          <h2>{`${animal} - ${breed} - ${city}, ${state}`}</h2>
+          <button
+            style={{ backgroundColor: this.props.theme, color: "#fff" }}
+            onClick={this.toggleModal}
+          >
+            Buy {animal}
+          </button>
+          <p>{description}</p>
 
-        {showModal ? (
-          <Modal>
-            <div>
-              <h1>Would you like to buy {name}</h1>
-              <div className={classes.buttons}>
-                <button onClick={this.buyAnimal}>Yes</button>
-                <button onClick={this.toggleModal}>No</button>
+          {showModal ? (
+            <Modal>
+              <div>
+                <h1>Would you like to buy {name}</h1>
+                <div className={classes.buttons}>
+                  <button onClick={this.buyAnimal}>Yes</button>
+                  <button onClick={this.toggleModal}>No</button>
+                </div>
               </div>
-            </div>
-          </Modal>
-        ) : null}
+            </Modal>
+          ) : null}
+        </div>
       </div>
     );
   }
 }
 
-const DetailsWithRouter = withRouter(Details);
+const mapStateToProps = ({ theme }) => ({ theme });
 
-export default function DetailsErrorBounday(props) {
+const ReduxWrappedDetails = connect(mapStateToProps)(Details);
+
+const DetailsWithRouter = withRouter(ReduxWrappedDetails);
+
+export default function DetailsErrorBoundary(props) {
   return (
-    <ErrorBounday>
+    <ErrorBoundary>
       <DetailsWithRouter {...props} />
-    </ErrorBounday>
+    </ErrorBoundary>
   );
 }
