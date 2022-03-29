@@ -1,17 +1,16 @@
+import { Provider } from "react-redux";
 import { StrictMode, useState, lazy, Suspense } from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Header from "./Header";
-import ThemeContext from "./ThemeContext";
+import store from "../../10-redux/src/store";
 
 const Details = lazy(() => import("./Details"));
 const SearchParams = lazy(() => import("./SearchParams"));
 
 const App = () => {
-  const theme = useState("darkblue");
-
   return (
-    <ThemeContext.Provider value={theme}>
+    <Provider store={store}>
       <Suspense fallback={<h1>loading route</h1>}>
         <Router>
           <Header />
@@ -25,7 +24,7 @@ const App = () => {
           </Switch>
         </Router>
       </Suspense>
-    </ThemeContext.Provider>
+    </Provider>
   );
 };
 
